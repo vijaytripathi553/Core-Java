@@ -1,0 +1,108 @@
+Abstract Class Interview Questinon
+
+
+Q.1 ) Can an abstract class have a constructor? If so, how can it be used and for what purposes?
+Ans.  YES, an Abstract class can have constructor.
+
+Q.2) Since We can not create the object of abstract class as it is partially implemented class So why we declare constructor in abstract class ?
+
+Ans.
+
+=> You would define a constructor in an abstract class if you are in one of these situations:
+
+a.) you want to perform some initialization (to fields of the abstract class) before the instantiation of a subclass actually takes place
+b.) you have defined final fields in the abstract class but you did not initialize them in the declaration itself; in this case, you MUST have a constructor to initialize these fields
+
+
+Q.3) Since We can not create the object of abstract class then when the constructor defined in abstract class is called ?
+
+Ans.
+
+NOTE :  When a class doesn't declare any constructor, the compiler creates a default constructor for us.
+
+IMP :   When we create an object of any subclass , so within the constructor of  subclass we can call to the constructoe of super class with the help of super() .
+IMP :   super() : It will call the default constructor of superclass.
+IMP:    super(20) : It will call the parameterized constructor of super class .
+IMP :   As far as I remember , the first statement of your derived class constructor should be the call of super class constructor.
+
+
+
+
+
+Example:
+
+Company.java
+
+
+package com.practice.interview;
+// Q. Can we declare constructor inside abstract class
+// Ans. YES, we can
+
+// Q.  If Yes, Why do create constructor since we can not create the object of abstract class
+//Ans.  To initialise
+
+abstract class Company {
+	// Private Data Members
+	
+	private String empName;
+	
+	
+	// Constructor
+	public Company(String empName)
+	{
+		//System.out.println(empName);
+		this.empName= empName;
+		System.out.println(empName);
+	}
+	
+	// Abstract class can have abstract as well as Non-abstract method (Concrete method)
+	
+	//Abstract Method
+	abstract public String findEmployee();
+	
+	// Non-abstract Method
+	public void findManager()
+	{
+		System.out.println("from findManager() method...");
+	}
+	
+}
+
+
+
+
+CompanyImpl.java
+
+package com.practice.interview;
+
+public class CompanyImpl extends Company {
+	String empName;
+	public CompanyImpl(String empName) {
+		super(empName);    // It will call to parent class constructor
+		this.empName=empName;
+	}
+	
+	
+	@Override
+	public String findEmployee() {
+		return "from findEmployee method - ->"+ "Employee Name is:"+empName;
+		
+	}
+	
+	
+	// Main Method
+	public static void main(String[] args) throws NoSuchFieldException, SecurityException 
+	{
+		/*
+		 * CompanyImpl impl=new CompanyImpl(); impl.findManager(); String
+		 * result=impl.findEmployee(); System.out.println(result);
+		 */
+		
+		Company c=new CompanyImpl("ABC");
+		c.findManager();
+		String result=c.findEmployee();
+		System.out.println(result);
+		
+	}
+
+}
